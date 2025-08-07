@@ -1,6 +1,7 @@
 import express from "express";
 
 import tmdbClient from "../utils/api";
+import { TMDB_API_KEY } from "../constants/misc";
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ export default (): express.Router => {
       const response = await tmdbClient.request({
         url: path,
         method: req.method,
-        params: req.query,
+        params: { ...req.query, api_key: TMDB_API_KEY },
       });
 
       return res.status(response.status).json(response.data);
