@@ -13,9 +13,7 @@ export default (): express.Router => {
 
       console.log({ path, query: req.query, params: req.params });
 
-      const response = await axios.request({
-        url: `${TMDB_ENDPOINT}/${path}`,
-        method: "GET",
+      const response = await axios.get(`${TMDB_ENDPOINT}/${path}`, {
         params: { ...req.query, api_key: TMDB_API_KEY },
       });
 
