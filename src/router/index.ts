@@ -1,7 +1,8 @@
 import express from "express";
 
 import tmdbClient from "../utils/api";
-import { TMDB_API_KEY } from "../constants/misc";
+import { TMDB_API_KEY, TMDB_ENDPOINT } from "../constants/misc";
+import axios from "axios";
 
 const router = express.Router();
 
@@ -12,9 +13,9 @@ export default (): express.Router => {
 
       console.log({ path, query: req.query, params: req.params });
 
-      const response = await tmdbClient.request({
-        url: path,
-        method: req.method,
+      const response = await axios.request({
+        url: `${TMDB_ENDPOINT}/${path}`,
+        method: "GET",
         params: { ...req.query, api_key: TMDB_API_KEY },
       });
 
